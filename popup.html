@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg: #020617;
+            --card: #1e293b;
+            --accent: #38bdf8;
+            --text: #f8fafc;
+        }
+
+        body {
+            width: 350px;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 12px;
+        }
+
+        .shield-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: white;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: 1px solid var(--accent);
+            border-color: var(--accent);
+        }
+
+        .meter-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            color: #64748b;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #meter-container {
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        #meter {
+            height: 100%;
+            width: 0%;
+            transition: all 0.4s ease;
+        }
+
+        button {
+            background: var(--accent);
+            color: #020617;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+        }
+
+        /* Result Card Themes */
+        .result-card {
+            padding: 16px;
+            border-radius: 8px;
+            text-align: left;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .status-title {
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+        }
+
+        .status-msg {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+        }
+
+        .critical {
+            background: #450a0a;
+            color: #fca5a5;
+            border: 1px solid #7f1d1d;
+        }
+
+        .warning {
+            background: #451a03;
+            color: #fdba74;
+            border: 1px solid #7c2d12;
+        }
+
+        .secure {
+            background: #064e3b;
+            color: #6ee7b7;
+            border: 1px solid #065f46;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="shield-icon"></div>
+            <h2>PASSGUARD</h2>
+        </div>
+
+        <input type="password" id="passInput" placeholder="ENTER PASSWORD...">
+
+        <div>
+            <div class="meter-label">
+                <span>ENTROPY LEVEL</span>
+                <span id="strengthLabel">---</span>
+            </div>
+            <div id="meter-container">
+                <div id="meter"></div>
+            </div>
+        </div>
+
+        <button id="checkBtn">RUN AUDIT</button>
+
+        <div id="result-area">
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>
