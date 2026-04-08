@@ -1,7 +1,6 @@
 document.getElementById('checkBtn').addEventListener('click', async () => {
     const password = document.getElementById('passInput').value;
     const resultArea = document.getElementById('result-area');
-    const strengthLabel = document.getElementById('strengthLabel');
 
     if (!password) return;
 
@@ -11,7 +10,7 @@ document.getElementById('checkBtn').addEventListener('click', async () => {
     updateMeter(complexity.score, complexity.label);
 
     try {
-        // 1. Generate SHA-1 Hash
+        // Generate SHA-1 Hash
         const msgUint8 = new TextEncoder().encode(password);
         const hashBuffer = await crypto.subtle.digest('SHA-1', msgUint8);
         const hashHex = Array.from(new Uint8Array(hashBuffer))
@@ -22,7 +21,7 @@ document.getElementById('checkBtn').addEventListener('click', async () => {
         const prefix = hashHex.substring(0, 5);
         const suffix = hashHex.substring(5);
 
-        // 2. Query HIBP Range API
+        // Query HIBP Range API
         const response = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
             headers: { 'User-Agent': 'PassGuard-Pro-Audit' }
         });
@@ -38,7 +37,7 @@ document.getElementById('checkBtn').addEventListener('click', async () => {
             }
         }
 
-        // 3. Render Result Card
+        // Render Result Card
         renderResult(breachCount, complexity);
 
     } catch (error) {
